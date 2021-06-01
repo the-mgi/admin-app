@@ -1,15 +1,40 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, ToastAndroid, View} from "react-native";
 import TextInputComponent from "../../component/text-input/text-input.component";
 import CustomButton from "../../component/button/button.component";
 import CommonStyles from '../../utils/common-styles';
 import BottomContainerComponent from "../../component/bottom-container/bottom-container.component";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
+import {ASYNC_STORAGE_KEYS} from "../../utils/constants";
 
 const LoginScreenComponent = ({navigation, route}) => {
 	const [userData, setUserData] = useState({email: "", password: ""});
+	const {getItem: getUserDataStore} = useAsyncStorage(ASYNC_STORAGE_KEYS.USER_DATA);
 
 	const handleInputChange = (text, type) => {
 		setUserData({...userData, [type]: text});
+	};
+
+	const navigate = () => {
+		navigation.navigate("signUpScreen");
+	};
+
+	const loginHandler = () => {
+		(async () => {
+			let jsObject = await getUserDataStore();
+			if (!jsObject) {
+				ToastAndroid.show("User does not exists", ToastAndroid.SHORT);
+				return;
+			}
+			jsObject = JSON.parse(jsObject);
+			if (
+				userData.email.toLowerCase() === jsObject.email.toLowerCase() &&
+				userData.password.toLowerCase() === jsObject.password.toLowerCase()) {
+				ToastAndroid.show("You are successfully logged In", ToastAndroid.SHORT);
+			} else {
+				ToastAndroid.show("Email & Password combination does not match", ToastAndroid.SHORT);
+			}
+		})();
 	};
 
 	return (
@@ -29,7 +54,7 @@ const LoginScreenComponent = ({navigation, route}) => {
 				<View>
 					<View style={CommonStyles.margin}>
 						<CustomButton buttonText="Login" colorB="royalblue" width={280} height={50}
-													textColor="white" handlePress={() => {}}/>
+													textColor="white" handlePress={loginHandler}/>
 					</View>
 				</View>
 				<View style={styles.forgotSignUp}>
@@ -37,7 +62,8 @@ const LoginScreenComponent = ({navigation, route}) => {
 						<Text style={{marginTop: 10, color: "red", fontSize: 16}}>Forgot Password?</Text>
 					</View>
 				</View>
-				<BottomContainerComponent buttonText="Create new Account" topText="Don't have an account yet?"/>
+				<BottomContainerComponent handlePress={navigate} buttonText="Create new Account"
+																	topText="Don't have an account yet?" textColor="royalblue"/>
 			</View>
 		</>
 	);

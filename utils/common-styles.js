@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		justifyContent: "center",
-		alignItems: "center"
+		alignItems: "center",
+		backgroundColor: "#fff"
 	},
 	card: {
 		backgroundColor: "#fff",

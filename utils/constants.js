@@ -1,0 +1,9 @@
+export const STATUSES = {
+	IS_LOADING: "IS_LOADING",
+	NOT_LOGGED_IN: "NOT_LOGGED_IN",
+	LOGGED_IN: "LOGGED_IN"
+};
+
+export const ASYNC_STORAGE_KEYS = {
+	USER_DATA: "@userData"
+}

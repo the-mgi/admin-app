@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableHighlight} from 'react-native';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 const CustomButton = ({
 												buttonText, handlePress, width, colorB,
-												height = 80, borderRadius = 8, ...styleProps
+												height = 80, borderRadius = 8, icon, ...styleProps
 											}) => {
 
 	const [isButtonPressed, setButtonPressed] = useState(false);
-
 	const touchConfiguration = {
 		onHideUnderlay: () => {
 			setButtonPressed(false)
@@ -31,9 +30,12 @@ const CustomButton = ({
 				...styleProps.style
 			}}
 		>
-			<Text style={{...styles.buttonText, color: isButtonPressed ? colorB : styleProps.textColor}}>
-				{buttonText}
-			</Text>
+			<View style={styles.textContainer}>
+				<Text style={{...styles.buttonText, color: isButtonPressed ? colorB : styleProps.textColor}}>
+					{buttonText}
+				</Text>
+				{icon || null}
+			</View>
 		</TouchableHighlight>
 	);
 };
@@ -47,6 +49,10 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		fontSize: 18
+	},
+	textContainer: {
+		flexDirection: "row",
+		alignItems: "center",
 	}
 });
 
