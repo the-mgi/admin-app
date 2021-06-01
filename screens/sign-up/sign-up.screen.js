@@ -5,8 +5,12 @@ import TextInputComponent from "../../component/text-input/text-input.component"
 import CustomButton from "../../component/button/button.component";
 import BottomContainerComponent from "../../component/bottom-container/bottom-container.component";
 
-const SignUpScreenComponent = () => {
+const SignUpScreenComponent = ({navigation, route}) => {
 	const [userData, setUserData] = useState({username: "", emailAddress: "password"});
+
+	const navigate = () => {
+		navigation.navigate("loginScreen");
+	};
 
 	const handleInputChange = (text, type) => {
 		setUserData({...userData, [type]: text});
@@ -36,7 +40,7 @@ const SignUpScreenComponent = () => {
 													textColor="white" handlePress={() => {}}/>
 					</View>
 				</View>
-				<BottomContainerComponent textColor="royalblue" colorB="white" buttonText="Login" topText="Already have an account? Sign in here"/>
+				<BottomContainerComponent handlePress={navigate} textColor="royalblue" colorB="white" buttonText="Login" topText="Already have an account? Sign in here"/>
 			</View>
 		</>
 	);

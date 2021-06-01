@@ -12,6 +12,10 @@ const LoginScreenComponent = ({navigation, route}) => {
 		setUserData({...userData, [type]: text});
 	};
 
+	const navigate = () => {
+		navigation.navigate("signUpScreen");
+	};
+
 	return (
 		<>
 			<View style={{...CommonStyles.container, ...CommonStyles.card}}>
@@ -29,7 +33,8 @@ const LoginScreenComponent = ({navigation, route}) => {
 				<View>
 					<View style={CommonStyles.margin}>
 						<CustomButton buttonText="Login" colorB="royalblue" width={280} height={50}
-													textColor="white" handlePress={() => {}}/>
+													textColor="white" handlePress={() => {
+						}}/>
 					</View>
 				</View>
 				<View style={styles.forgotSignUp}>
@@ -37,7 +42,8 @@ const LoginScreenComponent = ({navigation, route}) => {
 						<Text style={{marginTop: 10, color: "red", fontSize: 16}}>Forgot Password?</Text>
 					</View>
 				</View>
-				<BottomContainerComponent buttonText="Create new Account" topText="Don't have an account yet?"/>
+				<BottomContainerComponent handlePress={navigate} buttonText="Create new Account"
+																	topText="Don't have an account yet?" textColor="royalblue"/>
 			</View>
 		</>
 	);
