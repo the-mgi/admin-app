@@ -1,21 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import LoginScreenComponent from "./screens/login/login.screen";
+import SignUpScreenComponent from "./screens/sign-up/sign-up.screen";
+import ForgotPasswordScreenComponent from "./screens/forgot-password/forgot-password.screen";
+import {NavigationContainer} from "@react-navigation/native";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	const Stack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	const StackHistoryLoginSignUp = () => {
+		return (
+			<Stack.Navigator>
+				<Stack.Screen
+					name="signUpScreen"
+					component={SignUpScreenComponent}
+					options={{
+						headerShown: true,
+						headerTitle: "Sign up for your account"
+					}}
+				/>
+				<Stack.Screen
+					name="loginScreen"
+					component={LoginScreenComponent}
+					options={{
+						headerShown: true,
+						headerTitle: "Login to Account"
+					}}
+				/>
+				<Stack.Screen
+					name="forgotPasswordScreen"
+					component={ForgotPasswordScreenComponent}
+					options={{
+						headerShown: true,
+						headerTitle: "Forgot Password"
+					}}
+				/>
+			</Stack.Navigator>
+		);
+	}
+
+	return (
+		<NavigationContainer>
+			<StackHistoryLoginSignUp/>
+		</NavigationContainer>
+	);
+}
